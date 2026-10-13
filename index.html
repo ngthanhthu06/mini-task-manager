@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý công việc cá nhân</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Task Manager</h1>
+        </header>
+
+        <main>
+            <form id="taskForm">
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="Nhập tên công việc..."
+                    required
+                >
+
+                <input type="date" id="taskDate">
+
+                <select id="taskPriority">
+                    <option value="Cao">Cao</option>
+                    <option value="Trung bình" selected>Trung bình</option>
+                    <option value="Thấp">Thấp</option>
+                </select>
+
+                <button type="submit">Thêm công việc</button>
+            </form>
+
+            <div class="toolbar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Tìm kiếm công việc..."
+                >
+
+                <select id="statusFilter">
+                    <option value="all">Tất cả</option>
+                    <option value="active">Chưa hoàn thành</option>
+                    <option value="completed">Đã hoàn thành</option>
+                </select>
+            </div>
+
+            <div id="taskList"></div>
+
+            <p id="taskCount"></p>
+        </main>
+
+        <footer>
+            Họ tên: Nguyễn Thị Thanh Thư | MSSV: 224001753
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

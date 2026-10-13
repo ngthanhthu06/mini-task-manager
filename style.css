@@ -1,0 +1,356 @@
+
+/* 1. Cài đặt chung */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6fb;
+    color: #263238;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* 2. Khung chính */
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* 3. Tiêu đề */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #5b4bdb;
+    font-size: 30px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #718096;
+    font-size: 15px;
+}
+
+/* 4. Form thêm công việc */
+#taskForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+input,
+select,
+button {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+input,
+select {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #d8deea;
+    background-color: #ffffff;
+    color: #263238;
+}
+
+#taskName {
+    flex: 2 1 220px;
+}
+
+#taskDate {
+    flex: 1 1 150px;
+}
+
+#taskPriority {
+    flex: 1 1 140px;
+}
+
+button {
+    padding: 12px 18px;
+    border: none;
+    background-color: #5b4bdb;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #4334b5;
+    transform: translateY(-2px);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid #b8b0ff;
+    outline-offset: 2px;
+}
+
+/* 5. Tìm kiếm và lọc */
+.toolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    flex: 1;
+}
+
+#statusFilter {
+    flex: 0 1 220px;
+}
+
+/* 6. Danh sách công việc */
+#taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.task-info {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.task-info h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.task-info p {
+    font-size: 13px;
+    color: #718096;
+}
+
+.task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.task-actions button {
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.task-actions .delete-btn {
+    background-color: #dc2626;
+}
+
+.task-actions .delete-btn:hover {
+    background-color: #b91c1c;
+}
+
+/* 7. Trạng thái hoàn thành */
+.task-item.completed {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.task-item.completed .task-info h3 {
+    text-decoration: line-through;
+    color: #718096;
+}
+
+/* 8. Màu mức ưu tiên */
+.priority-high {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.priority-medium {
+    color: #d97706;
+    font-weight: bold;
+}
+
+.priority-low {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+/* 9. Thống kê và chân trang */
+#taskCount {
+    margin-top: 18px;
+    color: #5b4bdb;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid #e2e8f0;
+    color: #718096;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+/* 10. Responsive cho điện thoại 375px */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 12px;
+        border-radius: 10px;
+    }
+
+    header {
+        margin-bottom: 22px;
+    }
+
+    header h1 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    header p {
+        font-size: 13px;
+    }
+
+    /* Form nhập công việc */
+    #taskForm {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #taskForm input,
+    #taskForm select,
+    #taskForm button {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        height: 44px !important;
+        min-height: 44px !important;
+        max-height: 44px !important;
+        padding: 0 12px !important;
+        font-size: 14px;
+        line-height: normal;
+    }
+
+    /* Tìm kiếm và bộ lọc */
+    .toolbar {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    #searchInput,
+    #statusFilter {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        height: 44px !important;
+        min-height: 44px !important;
+        max-height: 44px !important;
+        padding: 0 12px !important;
+        font-size: 14px;
+        line-height: normal;
+    }
+
+    /* Danh sách công việc */
+    #taskList {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .task-item {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+        min-width: 0;
+        padding: 12px;
+    }
+
+    .task-info {
+        width: 100%;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .task-info h3 {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .task-info p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    /* Nút hoàn thành và xóa */
+    .task-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .task-actions button {
+        flex: 1;
+        min-width: 0;
+        height: 40px;
+        min-height: 40px;
+        padding: 0 6px;
+        font-size: 12px;
+        line-height: normal;
+    }
+
+    /* Thống kê */
+    #taskCount {
+        margin-top: 14px;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    /* Chân trang */
+    footer {
+        margin-top: 24px;
+        padding-top: 14px;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+}
