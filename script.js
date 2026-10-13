@@ -1,9 +1,8 @@
-
-/* 1. Mảng chứa 5 công việc mẫu */
-let tasks = [
+/* 1. Danh sách công việc mẫu */
+const defaultTasks = [
     {
         id: 1,
-        name: "Xem  HTML",
+        name: "Xem HTML",
         date: "2026-10-14",
         priority: "Cao",
         completed: false
@@ -38,7 +37,29 @@ let tasks = [
     }
 ];
 
-/* 2. Lấy các phần tử HTML */
+/* 2. Đọc công việc đã lưu */
+let tasks;
+
+try {
+    const savedTasks = localStorage.getItem("tasks");
+    tasks = savedTasks !== null
+        ? JSON.parse(savedTasks)
+        : defaultTasks;
+} catch (error) {
+    tasks = defaultTasks;
+}
+
+/* 3. Lưu danh sách công việc */
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+/* Lưu danh sách mẫu nếu chưa có dữ liệu */
+if (localStorage.getItem("tasks") === null) {
+    saveTasks();
+}
+
+/* 4. Lấy các phần tử HTML */
 const taskForm = document.getElementById("taskForm");
 const taskName = document.getElementById("taskName");
 const taskDate = document.getElementById("taskDate");
@@ -50,12 +71,11 @@ const statusFilter = document.getElementById("statusFilter");
 const taskList = document.getElementById("taskList");
 const taskCount = document.getElementById("taskCount");
 
-/* 3. Hiển thị danh sách công việc */
+/* 5. Hiển thị danh sách công việc */
 function renderTasks() {
     const keyword = searchInput.value.trim().toLowerCase();
     const status = statusFilter.value;
 
-    // Tìm kiếm theo tên và lọc trạng thái
     const filteredTasks = tasks.filter(function(task) {
         const matchName = task.name.toLowerCase().includes(keyword);
 
@@ -98,7 +118,6 @@ function renderTasks() {
             ? new Date(task.date + "T00:00:00").toLocaleDateString("vi-VN")
             : "Chưa đặt hạn";
 
-        // Thông tin công việc
         const info = document.createElement("div");
         info.className = "task-info";
 
@@ -117,7 +136,6 @@ function renderTasks() {
         detail.appendChild(priority);
         info.append(title, detail);
 
-        // Các nút thao tác
         const actions = document.createElement("div");
         actions.className = "task-actions";
 
@@ -141,7 +159,6 @@ function renderTasks() {
         taskList.appendChild(item);
     });
 
-    // Thống kê công việc
     const completedCount = tasks.filter(function(task) {
         return task.completed;
     }).length;
@@ -151,7 +168,7 @@ function renderTasks() {
         " công việc | Đã hoàn thành: " + completedCount;
 }
 
-/* 4. Thêm công việc */
+/* 6. Thêm công việc */
 taskForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -172,28 +189,26 @@ taskForm.addEventListener("submit", function(event) {
     };
 
     tasks.push(newTask);
+    saveTasks();
 
-    // Xóa nội dung form
     taskForm.reset();
-
-    // Hiện công việc mới ngay cả khi đang tìm kiếm hoặc lọc
     statusFilter.value = "all";
     searchInput.value = "";
 
     renderTasks();
 });
 
-/* 5. Tìm kiếm không phân biệt hoa thường */
+/* 7. Tìm kiếm */
 searchInput.addEventListener("input", function() {
     renderTasks();
 });
 
-/* 6. Lọc theo trạng thái */
+/* 8. Lọc trạng thái */
 statusFilter.addEventListener("change", function() {
     renderTasks();
 });
 
-/* 7. Đánh dấu hoàn thành và xóa công việc */
+/* 9. Hoàn thành và xóa công việc */
 taskList.addEventListener("click", function(event) {
     const button = event.target.closest("button");
 
@@ -215,6 +230,9 @@ taskList.addEventListener("click", function(event) {
 
             return task;
         });
+
+        saveTasks();
+
     } else if (action === "delete") {
         const confirmed = confirm(
             "Bạn có chắc muốn xóa công việc này?"
@@ -227,10 +245,15 @@ taskList.addEventListener("click", function(event) {
         tasks = tasks.filter(function(task) {
             return task.id !== id;
         });
+
+        saveTasks();
+
+    } else {
+        return;
     }
 
     renderTasks();
 });
 
-/* 8. Hiển thị danh sách khi mở trang */
+/* 10. Hiển thị danh sách khi mở trang */
 renderTasks();
